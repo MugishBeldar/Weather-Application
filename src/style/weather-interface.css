@@ -1,0 +1,125 @@
+.weather-primary{
+  background-image: linear-gradient(to right bottom, rgba( 0, 0, 0, 0.3), rgba(128, 128, 128, 0.3)), url(../assets/background\ image.jpg);
+  height: 95vh;
+  background-position: bottom;
+  background-size: cover;
+  box-shadow: 0 8px 32px 0 rgba(3, 16, 192, 0.37);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.weather-primary-main {
+  display: flex;
+  justify-content: space-between;
+  padding: 30px; 
+  position: relative;
+}
+
+.secondary-one__temp{
+  display: flex;
+  margin-top: 20px;
+}
+
+.vl {
+  margin: 0px 30px;
+}
+
+.secondary-one__temp-sub {
+  text-align: center;
+}
+
+.secondary-one__temp-sub > p {
+  margin: 10px 0px;
+}
+
+.heading {
+  font-size: 1.2rem;
+  color: rgb(255, 136, 0);
+
+}
+
+.main-weather {
+  color: #ff8800;
+}
+.secondary-one__temp-sub > p > span {
+  margin: 0px 10px;
+  font-weight: bold;
+
+}
+
+.secondary-two__sub {
+  margin: 20px 60px 20px 0px;
+  border-bottom: 1px solid white;
+}
+
+.sub__img {
+  display: flex;
+  align-items: center;
+  color: #f80;
+}
+
+.sub__img > span {
+  margin-left: 20px;
+}
+
+.sub__value {
+  margin-bottom: 20px ;
+  margin-top: 5px;
+  text-align: center;
+}
+
+.sub__option {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.search {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+.ant-select-show-search:where(.css-dev-only-do-not-override-2q8sxy).ant-select:not(.ant-select-customize-input) .ant-select-selector {
+  cursor: text;
+  background: rgba(255,255,255,.8);
+  border: none;
+}
+
+:where(.css-dev-only-do-not-override-2q8sxy).ant-select-single .ant-select-selector .ant-select-selection-placeholder {
+  color: black;
+  text-align: center;
+}
+
+.prediction-main {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.prediction-main_sub {
+  background: rgba(0, 0, 0, 0.253);
+  border-radius: 10px;
+  padding: 10px 20px;
+}
+
+.prediction-heading {
+  font-size: 1.4rem;
+  padding: 5px 10px ;
+  text-align: center;
+  border-bottom: 1px solid #f80;
+
+}
+
+.sub_details > p{
+  padding: 5px 0px;
+  text-align: center;
+  margin: 5px 0px;
+}
+
+.city-details > p{
+  padding: 10px 0px;
+  text-align: center;
+}
