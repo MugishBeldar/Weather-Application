@@ -5,11 +5,11 @@ import Settings from './settings/settings'
 
 const Sidebar = () => {
   return (
-    <div>
-        <Logo/>
-        <Cities/>
-        <Settings/>
-    </div>
+    <>
+      <Logo />
+      <Cities />
+      <Settings />
+    </>
   )
 }
 

@@ -2,7 +2,7 @@ import React from 'react'
 
 const Settings = () => {
   return (
-    <div>Settings</div>
+    <div className='md:my-10 text-customGray'>Settings</div>
   )
 }
 
