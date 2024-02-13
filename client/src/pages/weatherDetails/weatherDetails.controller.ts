@@ -17,7 +17,6 @@ const useWeatherDetailsController = () => {
         console.error("Error getting location:", error.message);
       }
     );
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 };
 

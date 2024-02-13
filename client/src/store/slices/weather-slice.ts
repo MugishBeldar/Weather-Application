@@ -10,6 +10,8 @@ const createWeatherSlice: StateCreator<WeatherSliceType> = (set, get) => ({
   setWeatherData: (data: any) => {
     set({weatherData: data});
   },
+
+
 });
 
 export { createWeatherSlice };

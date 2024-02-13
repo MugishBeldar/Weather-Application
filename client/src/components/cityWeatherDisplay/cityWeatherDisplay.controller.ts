@@ -10,8 +10,7 @@ interface useCityWeatherDisplayControllerProps {
 const useCityWeatherDisplayController = ({
   setFilterCity,
 }: useCityWeatherDisplayControllerProps) => {
-  const { weatherData, setWeatherData } = useAppStore();
-  console.log("🚀 ~ weatherData:", weatherData);
+  const { setWeatherData } = useAppStore();
 
   const handleSearch = (cityName: string) => {
     let filteredCitiesNames: FilterCityTypes[];
