@@ -1,18 +1,39 @@
-import React from 'react'
+import React, { useState } from 'react'
 import sunnyOrClearSky from '../../assets/sunny or clear sky.png'
+import cloud from '../../assets/scatter clouds or broken cloud.png'
+import useCityWeatherDisplayController from './cityWeatherDisplay.controller'
+import { FilterCityTypes } from '../../types'
+import { AutoComplete, ConfigProvider } from 'antd';
+
 const CityWeatherDisplay = () => {
+
+  const [filterCity, setFilterCity] = useState<FilterCityTypes[]>([])
+  console.log("🚀 ~ CityWeatherDisplay ~ filterCity:", filterCity)
+  const { handleSearch, handleSelect } = useCityWeatherDisplayController({ setFilterCity });
+
   return (
     <>
       <div className='h-[6%]'>
-        <label className="relative block m-2">
-          <span className="sr-only">Search</span>
-          <span className="absolute inset-y-0 left-0 flex items-center pl-2">
-            <svg className="w-5 h-5 fill-customGray" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
-              <path d="M 21 3 C 11.601563 3 4 10.601563 4 20 C 4 29.398438 11.601563 37 21 37 C 24.355469 37 27.460938 36.015625 30.09375 34.34375 L 42.375 46.625 L 46.625 42.375 L 34.5 30.28125 C 36.679688 27.421875 38 23.878906 38 20 C 38 10.601563 30.398438 3 21 3 Z M 21 7 C 28.199219 7 34 12.800781 34 20 C 34 27.199219 28.199219 33 21 33 C 13.800781 33 8 27.199219 8 20 C 8 12.800781 13.800781 7 21 7 Z"></path>
-            </svg>
-          </span>
-          <input className="placeholder:italic placeholder:text-customGray block bg-customCharcolBlack w-full border border-customCharcolBlack rounded-xl py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-customCharcolBlack focus:ring-customCharcolBlack focus:ring-1 sm:text-sm" placeholder="Search for cities" type="text" name="search" />
-        </label>
+        <ConfigProvider
+          theme={{
+            token: {
+              colorPrimary: '#202B3B',
+              colorBorder: '#202B3B',
+              colorBgContainer: '#202B3B',
+              colorText: "geekblue-3",
+              colorTextPlaceholder: '#A1A7B3'
+            },
+          }} >
+          <AutoComplete
+            style={{
+              width: '100%',
+            }}
+            onSearch={handleSearch}
+            placeholder="Enter City Name"
+            options={filterCity}
+          onSelect={handleSelect}
+          />
+        </ConfigProvider>
       </div>
       <div className='grid grid-rows-3 h-[94%]'>
         <div className='grid grid-cols-2 mx-4'>
@@ -30,9 +51,73 @@ const CityWeatherDisplay = () => {
           </div>
         </div>
 
-        <div>todays forecast</div>
-        <div>air condition</div>
+        <div className='mx-4 bg-customCharcolBlack rounded-xl mb-3'>
+          <p className='text-customGray text-sm m-3'>TODAY'S FORECAST</p>
+          <div className='grid place-items-center grid-cols-6'>
+            <div className='grid place-items-center my-3'>
+              <p className='text-[10px] sm:text-[16px] md:my-2'>6:00 AM</p>
+              <img src={cloud} alt="" className='w-[40px] md:w-[80px] my-3' />
+              <p className='text-[10px] sm:text-[16px] my-2'>31°</p>
+            </div>
+            <div className='grid place-items-center my-3'>
+              <p className='text-[10px] sm:text-[16px] md:my-2'>6:00 AM</p>
+              <img src={cloud} alt="" className='w-[40px] md:w-[80px] my-3' />
+              <p className='text-[10px] sm:text-[16px] my-2'>31°</p>
+            </div>
+            <div className='grid place-items-center my-3'>
+              <p className='text-[10px] sm:text-[16px] md:my-2'>6:00 AM</p>
+              <img src={cloud} alt="" className='w-[40px] md:w-[80px] my-3' />
+              <p className='text-[10px] sm:text-[16px] my-2'>31°</p>
+            </div>
+            <div className='grid place-items-center my-3'>
+              <p className='text-[10px] sm:text-[16px] md:my-2'>6:00 AM</p>
+              <img src={cloud} alt="" className='w-[40px] md:w-[80px] my-3' />
+              <p className='text-[10px] sm:text-[16px] my-2'>31°</p>
+            </div>
+            <div className='grid place-items-center my-3'>
+              <p className='text-[10px] sm:text-[16px] md:my-2'>6:00 AM</p>
+              <img src={cloud} alt="" className='w-[40px] md:w-[80px] my-3' />
+              <p className='text-[10px] sm:text-[16px] my-2'>31°</p>
+            </div>
+            <div className='grid place-items-center my-3'>
+              <p className='text-[10px] sm:text-[16px] md:my-2'>6:00 AM</p>
+              <img src={cloud} alt="" className='w-[40px] md:w-[80px] my-3' />
+              <p className='text-[10px] sm:text-[16px] my-2'>31°</p>
+            </div>
+          </div>
+        </div>
+        <div className='mx-4 bg-customCharcolBlack rounded-xl'>
+          <p className='text-customGray text-sm m-3'>AIR CONDITION</p>
+          <div className='grid grid-cols-3 justify-center place-items-center gap-y-10'>
+            <div className=''>
+              <p>Real Feel</p>
+              <p>31°</p>
+            </div>
+            <div className=''>
+              <p>Real Feel</p>
+              <p>31°</p>
+            </div>
+            <div className=''>
+              <p>Real Feel</p>
+              <p>31°</p>
+            </div>
+            <div className=''>
+              <p>Real Feel</p>
+              <p>31°</p>
+            </div>
+            <div className=''>
+              <p>Real Feel</p>
+              <p>31°</p>
+            </div>
+            <div className=''>
+              <p>Real Feel</p>
+              <p>31°</p>
+            </div>
+
+          </div>
+        </div>
       </div>
+
     </>
   )
 }

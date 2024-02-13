@@ -1,6 +1,11 @@
 import LandingPage from "./landingPage/landingPage"
-import WeatherDetails from "./weatherDetails/weatherDetails"
+import Sidebar from "./sidebar/sidebar"
+import CityWeatherDisplay from "./cityWeatherDisplay/cityWeatherDisplay"
+import SevenDaysForeCast from "./sevenDaysForecast/sevenDaysForeCast"
+
 export {
-    WeatherDetails,
-    LandingPage
+    LandingPage,
+    Sidebar,
+    CityWeatherDisplay,
+    SevenDaysForeCast,
 }
