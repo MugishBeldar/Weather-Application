@@ -8,7 +8,7 @@ import { AutoComplete, ConfigProvider } from 'antd';
 const CityWeatherDisplay = () => {
 
   const [filterCity, setFilterCity] = useState<FilterCityTypes[]>([])
-  console.log("🚀 ~ CityWeatherDisplay ~ filterCity:", filterCity)
+  // console.log("🚀 ~ CityWeatherDisplay ~ filterCity:", filterCity)
   const { handleSearch, handleSelect } = useCityWeatherDisplayController({ setFilterCity });
 
   return (

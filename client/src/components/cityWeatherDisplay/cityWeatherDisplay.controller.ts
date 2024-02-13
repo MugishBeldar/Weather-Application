@@ -1,7 +1,8 @@
 import { FilterCityTypes, CitiesTypes } from "../../types";
 import cities from "cities.json";
 import citiesNames from "../../utils/cities-name.json";
-
+import { useAppStore } from "../../store/store";
+import { getWeatherData } from "../../api";
 interface useCityWeatherDisplayControllerProps {
   setFilterCity: React.Dispatch<React.SetStateAction<FilterCityTypes[]>>;
 }
@@ -9,6 +10,8 @@ interface useCityWeatherDisplayControllerProps {
 const useCityWeatherDisplayController = ({
   setFilterCity,
 }: useCityWeatherDisplayControllerProps) => {
+  const { weatherData, setWeatherData } = useAppStore();
+  console.log("🚀 ~ weatherData:", weatherData);
 
   const handleSearch = (cityName: string) => {
     let filteredCitiesNames: FilterCityTypes[];
@@ -25,15 +28,25 @@ const useCityWeatherDisplayController = ({
     setFilterCity(filteredCitiesNames);
   };
 
-  const handleSelect = (cityName:string)=>{
-    // @ts-ignore
-    const searchCityCord = cities.find((city:CitiesTypes)=>city.name===cityName);
-    console.log("🚀 ~ handleSelect ~ searchCityCord:", searchCityCord)
-  }
+  const handleSelect = async (cityName: string) => {
+    try {
+      // @ts-ignore
+      const searchCityCord: any = cities.find(
+        (city: CitiesTypes) => city.name === cityName
+      );
+      const response = await getWeatherData({
+        lat: searchCityCord.lat,
+        lon: searchCityCord.lng,
+      });
+      setWeatherData(response.data.data);
+    } catch (error) {
+      console.log("Error while getting weatherdata:--", error);
+    }
+  };
 
   return {
     handleSearch,
-    handleSelect
+    handleSelect,
   };
 };
 export default useCityWeatherDisplayController;

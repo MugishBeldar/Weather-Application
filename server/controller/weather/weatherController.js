@@ -5,7 +5,7 @@ const {
 
 const getWeatherData = async (req, res) => {
   try {
-    const { lat, lon } = req.body;
+    const { lat, lon } = req.query;
     if (!lat || !lon) {
       return res.status(400).json({ success: false, message: "Bad request" });
     }
