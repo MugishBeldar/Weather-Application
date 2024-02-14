@@ -1,7 +1,20 @@
 import React, { useState } from 'react'
 import sunnyOrClearSky from '../../assets/sunnyOrClearSky.png'
+import fewClouds from '../../assets/fewClouds.png'
 import cloud from '../../assets/overcastCloudScatterCloudsOrBrokenCloud.png'
 import useCityWeatherDisplayController from './cityWeatherDisplay.controller'
+import showerRain from '../../assets/showerRain.png'
+import rain from '../../assets/rain.png'
+import thunderStrom from '../../assets/thunderstorm.png'
+import snow from '../../assets/snow.png';
+import mist from '../../assets/mist.png';
+import lightRain from '../../assets/lightRain.png';
+import { CiTempHigh } from "react-icons/ci";
+import { FaWind } from "react-icons/fa";
+import { WiHumidity } from "react-icons/wi";
+import { IoIosSpeedometer } from "react-icons/io";
+import { GiGrass } from "react-icons/gi";
+import { FaWater } from "react-icons/fa";
 import { FilterCityTypes } from '../../types'
 import { AutoComplete, ConfigProvider } from 'antd';
 import { useAppStore } from '../../store'
@@ -9,14 +22,14 @@ import { useAppStore } from '../../store'
 const CityWeatherDisplay = () => {
 
   const [filterCity, setFilterCity] = useState<FilterCityTypes[]>([])
-  const { handleSearch, handleSelect } = useCityWeatherDisplayController({ setFilterCity });
+  const { handleSearch, handleSelect, getCountryNameFromContryCode } = useCityWeatherDisplayController({ setFilterCity });
   const { weatherData } = useAppStore();
-  // console.log("🚀 ~ CityWeatherDisplay ~ weatherData:", weatherData)
+  console.log("weatherData: \n\n\n\n", weatherData);
 
   return (
     <>
       {Object.keys(weatherData).length && <>
-        <div className='h-[6%]'>
+        <div className='h-[.5%]'>
           <ConfigProvider
             theme={{
               token: {
@@ -30,6 +43,7 @@ const CityWeatherDisplay = () => {
             <AutoComplete
               style={{
                 width: '100%',
+                padding: '0px 10px'
               }}
               onSearch={handleSearch}
               placeholder="Enter City Name"
@@ -38,103 +52,135 @@ const CityWeatherDisplay = () => {
             />
           </ConfigProvider>
         </div>
-        <div className='grid grid-rows-3 h-[94%]'>
-          <div className='grid grid-cols-2 mx-4'>
+        <div className='grid grid-rows-3 h-[99.5%]'>
+          <div className=' grid grid-cols-2 mx-4'>
             <div className='grid grid-rows-2'>
               <div className='flex flex-col justify-center'>
-                <p className='font-bold text-3xl sm:text-4xl'>{weatherData?.city?.name}</p>
-                {/* <p className='text-customGray'>{weatherData?.weather[0]?.description}</p> */}
+                <p className='font-bold text-3xl sm:text-4xl'>{weatherData?.city?.name} <span className='text-sm text-customGray'>{getCountryNameFromContryCode(weatherData?.city?.country)}</span></p>
+                <p className='text-customGray'>{weatherData['today'][0]?.weather[0].description}</p>
               </div>
               <div className='flex items-center text-3xl sm:text-5xl'>
-                {weatherData[Object.keys(weatherData)[0]][0]?.main?.temp}
+                {/* {weatherData[Object.keys(weatherData)[0]][0]?.main?.temp} */}
+                {weatherData['today'][0]?.main?.temp}
               </div>
             </div>
             <div className='grid place-items-center'>
-              {weatherData[Object.keys(weatherData)[0]][0]?.weather?.description === 'clear sky' || 'sunny' ?
-                <img src={sunnyOrClearSky} alt="" className='w-full sm:w-[200px]' /> : null}
+              {
+                weatherData['today'][0]?.weather[0]?.description === 'clear sky' || weatherData['today'][0]?.weather[0]?.description === "sunny" ?
+                  <img src={sunnyOrClearSky} alt="" className='w-full sm:w-[200px]' /> :
+                  weatherData['today'][0]?.weather[0]?.description === 'few clouds' ?
+                    <img src={fewClouds} alt="" className='w-full sm:w-[200px]' /> :
+                    weatherData['today'][0]?.weather[0]?.description === 'scattered clouds' || weatherData['today'][0]?.weather[0]?.description === "broken clouds" || weatherData['today'][0]?.weather[0]?.description === "overcast clouds" ?
+                      <img src={cloud} alt="" className='w-full sm:w-[200px]' /> :
+                      weatherData['today'][0]?.weather[0]?.description === 'shower rain' ?
+                        <img src={showerRain} alt="" className='w-full sm:w-[200px]' /> :
+                        weatherData['today'][0]?.weather[0]?.description === 'rain' ?
+                          <img src={rain} alt="" className='w-full sm:w-[200px]' /> :
+                          weatherData['today'][0]?.weather[0]?.description === 'thunderstorm' ?
+                            <img src={thunderStrom} alt="" className='w-full sm:w-[200px]' /> :
+                            weatherData['today'][0]?.weather[0]?.description === 'snow' || weatherData['today'][0]?.weather[0]?.description === 'light snow' ?
+                              <img src={snow} alt="" className='w-full sm:w-[200px]' /> :
+                              weatherData['today'][0]?.weather[0]?.description === 'mist' ?
+                                <img src={mist} alt="" className='w-full sm:w-[200px]' /> :
+                                weatherData['today'][0]?.weather[0]?.description === 'light rain' || weatherData['today'][0]?.weather[0]?.description === 'moderate rain' ?
+                                  <img src={lightRain} alt="" className='w-full sm:w-[200px]' /> :
+                                  null
+              }
             </div>
           </div>
 
           <div className='mx-4 bg-customCharcolBlack rounded-xl mb-3'>
             <p className='text-customGray text-sm m-3'>TODAY'S FORECAST</p>
-            <div className='grid place-items-center grid-cols-6'>
-              {
-                // weatherData && Object.keys(weatherData).map((date) => {
-                // if (date !== 'city') {
-                // console.log(weatherData[date], "><><>")
-                weatherData[Object.keys(weatherData)[0]].map((obj: any) => {
-                  console.log(obj)
-                  return (
-                    <div className='grid place-items-center my-3'>
-                      <p className='text-[10px] sm:text-[16px] md:my-2'>{obj.time}</p>
-                      <img src={cloud} alt="" className='w-[40px] md:w-[80px] my-3' />
-                      <p className='text-[10px] sm:text-[16px] my-2'>31°</p>
-                    </div>
-                  )
-                })
-                // }
-                // })
-              }
+            <div className={`flex justify-evenly`}>
+              {weatherData['today'].map((obj: any, index: number) => {
+                return (
+                  <div className='grid place-items-center my-3' key={index}>
+                    <p className='text-[10px] sm:text-[16px] md:my-1' key={index}>{obj.time}</p>
+                    {
+                      obj?.weather[0].description === 'clear sky' || obj?.weather[0].description === "sunny" ?
+                        <img src={sunnyOrClearSky} alt="" className='md:h-[140px] pr-2' /> :
+                        obj?.weather[0].description === 'few clouds' ?
+                          <img src={fewClouds} alt="" className='md:h-[140px] pr-2' /> :
+                          obj?.weather[0].description === 'scattered clouds' || obj?.weather[0].description === "broken clouds" || obj?.weather[0].description === "overcast clouds" ?
+                            <img src={cloud} alt="" className='md:h-[140px] pr-2' /> :
+                            obj?.weather[0].description === 'shower rain' ?
+                              <img src={showerRain} alt="" className='md:h-[140px] pr-2' /> :
+                              obj?.weather[0].description === 'rain' ?
+                                <img src={rain} alt="" className='md:h-[140px] pr-2' /> :
+                                obj?.weather[0].description === 'thunderstorm' ?
+                                  <img src={thunderStrom} alt="" className='md:h-[140px] pr-2' /> :
+                                  obj?.weather[0].description === 'snow' || obj?.weather[0].description === 'light snow' ?
+                                    <img src={snow} alt="" className='md:h-[140px] pr-2' /> :
+                                    obj?.weather[0].description === 'mist' ?
+                                      <img src={mist} alt="" className='md:h-[140px] pr-2' /> :
+                                      obj?.weather[0].description === 'light rain' || obj?.weather[0].description === 'moderate rain' ?
+                                        <img src={lightRain} alt="" className='md:h-[140px] pr-2' /> :
+                                        null
+                    }
+                    <p className='text-[10px] sm:text-[16px]'>{obj?.weather[0].description}</p>
+                    <p className='text-[10px] sm:text-[16px]'>{obj?.main?.temp}°</p>
+                  </div>
+                )
+              })}
+
             </div>
-            {/* <div className='grid place-items-center grid-cols-6'>
-            <div className='grid place-items-center my-3'>
-              <p className='text-[10px] sm:text-[16px] md:my-2'>6:00 AM</p>
-              <img src={cloud} alt="" className='w-[40px] md:w-[80px] my-3' />
-              <p className='text-[10px] sm:text-[16px] my-2'>31°</p>
-            </div>
-            <div className='grid place-items-center my-3'>
-              <p className='text-[10px] sm:text-[16px] md:my-2'>6:00 AM</p>
-              <img src={cloud} alt="" className='w-[40px] md:w-[80px] my-3' />
-              <p className='text-[10px] sm:text-[16px] my-2'>31°</p>
-            </div>
-            <div className='grid place-items-center my-3'>
-              <p className='text-[10px] sm:text-[16px] md:my-2'>6:00 AM</p>
-              <img src={cloud} alt="" className='w-[40px] md:w-[80px] my-3' />
-              <p className='text-[10px] sm:text-[16px] my-2'>31°</p>
-            </div>
-            <div className='grid place-items-center my-3'>
-              <p className='text-[10px] sm:text-[16px] md:my-2'>6:00 AM</p>
-              <img src={cloud} alt="" className='w-[40px] md:w-[80px] my-3' />
-              <p className='text-[10px] sm:text-[16px] my-2'>31°</p>
-            </div>
-            <div className='grid place-items-center my-3'>
-              <p className='text-[10px] sm:text-[16px] md:my-2'>6:00 AM</p>
-              <img src={cloud} alt="" className='w-[40px] md:w-[80px] my-3' />
-              <p className='text-[10px] sm:text-[16px] my-2'>31°</p>
-            </div>
-            <div className='grid place-items-center my-3'>
-              <p className='text-[10px] sm:text-[16px] md:my-2'>6:00 AM</p>
-              <img src={cloud} alt="" className='w-[40px] md:w-[80px] my-3' />
-              <p className='text-[10px] sm:text-[16px] my-2'>31°</p>
-            </div>
-          </div> */}
           </div>
           <div className='mx-4 bg-customCharcolBlack rounded-xl'>
-            <p className='text-customGray text-sm m-3'>AIR CONDITION</p>
-            <div className='grid grid-cols-3 justify-center place-items-center gap-y-10'>
-              <div className=''>
-                <p>Real Feel</p>
-                <p>31°</p>
+            <p className='text-customGray text-sm m-3'>MORE INFO</p>
+            <div className='grid grid-cols-3 justify-center place-items-center gap-y-10 sm:gap-y-20 sm:mt-10'>
+              <div className='flex justify-center items-center'>
+                <div className=''>
+                  <CiTempHigh size={30} color='#A1A7B3' className='mr-2' />
+                </div>
+                <div>
+                  <p>Real Feel</p>
+                  <p>{weatherData['today'][0].main.feels_like}</p>
+                </div>
               </div>
-              <div className=''>
-                <p>Real Feel</p>
-                <p>31°</p>
+              <div className='flex justify-center items-center'>
+                <div className="">
+                  <FaWind size={30} color='#A1A7B3' className='mr-2' />
+                </div>
+                <div>
+                  <p>Wind</p>
+                  <p>{weatherData['today'][0].wind.speed}</p>
+                </div>
               </div>
-              <div className=''>
-                <p>Real Feel</p>
-                <p>31°</p>
+              <div className='flex justify-center items-center'>
+                <div className="">
+                  <WiHumidity size={30} color='#A1A7B3' className='mr-2' />
+                </div>
+                <div>
+                  <p>Humidity</p>
+                  <p>{weatherData['today'][0].main.humidity}</p>
+                </div>
               </div>
-              <div className=''>
-                <p>Real Feel</p>
-                <p>31°</p>
+              <div className='flex justify-center items-center'>
+                <div className="" >
+                  <IoIosSpeedometer size={30} color='#A1A7B3' className='mr-2' />
+                </div>
+                <div>
+                  <p>Pressure</p>
+                  <p>{weatherData['today'][0].main.pressure}</p>
+                </div>
               </div>
-              <div className=''>
-                <p>Real Feel</p>
-                <p>31°</p>
+              <div className='flex justify-center items-center'>
+                <div className="" >
+                  <GiGrass size={30} color='#A1A7B3' className='mr-2' />
+                </div>
+                <div>
+                  <p>Ground level</p>
+                  <p>{weatherData['today'][0].main.grnd_level}</p>
+                </div>
               </div>
-              <div className=''>
-                <p>Real Feel</p>
-                <p>31°</p>
+              <div className='flex  justify-center items-center'>
+                <div className="">
+                  <FaWater size={30} color='#A1A7B3' className='mr-2' />
+                </div>
+                <div>
+                  <p>Sea level</p>
+                  <p>{weatherData['today'][0].main.sea_level}</p>
+                </div>
               </div>
 
             </div>

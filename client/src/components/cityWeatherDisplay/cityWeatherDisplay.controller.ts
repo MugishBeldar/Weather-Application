@@ -43,9 +43,15 @@ const useCityWeatherDisplayController = ({
     }
   };
 
+  const getCountryNameFromContryCode = (code: string) => {
+    let regionNames = new Intl.DisplayNames(["en"], { type: "region" });
+    return regionNames.of(code);
+  };
+
   return {
     handleSearch,
     handleSelect,
+    getCountryNameFromContryCode
   };
 };
 export default useCityWeatherDisplayController;

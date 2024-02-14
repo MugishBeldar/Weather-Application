@@ -10,7 +10,7 @@ const getWeatherData = async (req, res) => {
       return res.status(400).json({ success: false, message: "Bad request" });
     }
     const weatherDetails = await getWeatherDataUsingOpenApi(lat, lon);
-    console.log("🚀 ~ getWeatherData ~ weatherDetails:", weatherDetails);
+    // console.log("🚀 ~ getWeatherData ~ weatherDetails:", weatherDetails);
 
     let groupedDataByDateTime = _.groupBy(weatherDetails.list, "dt_txt");
     let consolidatedData = [];
@@ -25,8 +25,14 @@ const getWeatherData = async (req, res) => {
     }
 
     let groupedDataByDate = _.groupBy(consolidatedData, "date");
-    groupedDataByDate.city = weatherDetails.city;
-    return res.status(200).json({ success: true, data: groupedDataByDate });
+    let groupDataByDays = {};
+    const daysKey = ["today", "tomorrow", "3rd", "4th", "5th", "6th"];
+    for (let i = 0; i <= Object.keys(groupedDataByDate).length; i++) {
+      groupDataByDays[daysKey[i]] =
+        groupedDataByDate[Object.keys(groupedDataByDate)[i]];
+    }
+    groupDataByDays.city = weatherDetails.city;
+    return res.status(200).json({ success: true, data: groupDataByDays });
   } catch (error) {
     console.log("🚀 ~ getWeatherData ~ error:", error);
     return res
