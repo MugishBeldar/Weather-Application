@@ -23,7 +23,7 @@ const CityWeatherDisplay = () => {
 
   const [filterCity, setFilterCity] = useState<FilterCityTypes[]>([])
   const [inputFieldValue, setInputFieldValue] = useState<string>('');
-  const { handleSearch, handleSelect, getCountryNameFromContryCode, handleChange  } = useCityWeatherDisplayController({ setFilterCity, setInputFieldValue });
+  const { handleSearch, handleSelect, getCountryNameFromContryCode, handleChange } = useCityWeatherDisplayController({ setFilterCity, setInputFieldValue });
   const { weatherData } = useAppStore();
   // console.log("weatherData: \n\n\n\n", weatherData);
 
@@ -57,14 +57,15 @@ const CityWeatherDisplay = () => {
         </div>
         <div className='grid grid-rows-3 h-[99.5%]'>
           <div className=' grid grid-cols-2 mx-4'>
-            <div className='grid grid-rows-2'>
+
+            <div className='grid grid-rows-2 '>
               <div className='flex flex-col justify-center'>
                 <p className='font-bold text-3xl sm:text-4xl'>{weatherData?.city?.name} <span className='text-sm text-customGray'>{weatherData && getCountryNameFromContryCode(weatherData?.city?.country)}</span></p>
-                <p className='text-customGray'>{weatherData['today'][0]?.weather[0].description}</p>
+                <p className='text-customGray'> {weatherData['today'][0]?.weather[0].description} </p>
               </div>
               <div className='flex items-center text-3xl sm:text-5xl'>
                 {/* {weatherData[Object.keys(weatherData)[0]][0]?.main?.temp} */}
-                {weatherData['today'][0]?.main?.temp}
+                {weatherData['today'][0]?.main?.temp} K
               </div>
             </div>
             <div className='grid place-items-center'>
@@ -117,7 +118,7 @@ const CityWeatherDisplay = () => {
                                       <img src={lightRain} alt="" className='md:h-[140px] pr-2' />
                     }
                     <p className='text-[10px] sm:text-[16px]'>{obj?.weather[0].description}</p>
-                    <p className='text-[10px] sm:text-[16px]'>{obj?.main?.temp}°</p>
+                    <p className='text-[10px] sm:text-[16px]'>{obj?.main?.temp} K</p>
                   </div>
                 )
               })}
@@ -134,7 +135,7 @@ const CityWeatherDisplay = () => {
                   </div>
                   <div>
                     <p>Real Feel</p>
-                    <p>{weatherData['today'][0].main.feels_like}</p>
+                    <p>{weatherData['today'][0].main.feels_like} K</p>
                   </div>
                 </div>
                 <div className='flex justify-center items-center'>
@@ -143,7 +144,7 @@ const CityWeatherDisplay = () => {
                   </div>
                   <div>
                     <p>Wind</p>
-                    <p>{weatherData['today'][0].wind.speed}</p>
+                    <p>{weatherData['today'][0].wind.speed} m/s</p>
                   </div>
                 </div>
                 <div className='flex justify-center items-center'>
@@ -152,7 +153,7 @@ const CityWeatherDisplay = () => {
                   </div>
                   <div>
                     <p>Humidity</p>
-                    <p>{weatherData['today'][0].main.humidity}</p>
+                    <p>{weatherData['today'][0].main.humidity} %</p>
                   </div>
                 </div>
                 <div className='flex justify-center items-center'>
@@ -161,7 +162,7 @@ const CityWeatherDisplay = () => {
                   </div>
                   <div>
                     <p>Pressure</p>
-                    <p>{weatherData['today'][0].main.pressure}</p>
+                    <p>{weatherData['today'][0].main.pressure} hPa</p>
                   </div>
                 </div>
                 <div className='flex justify-center items-center'>
@@ -170,7 +171,7 @@ const CityWeatherDisplay = () => {
                   </div>
                   <div>
                     <p>Ground level</p>
-                    <p>{weatherData['today'][0].main.grnd_level}</p>
+                    <p>{weatherData['today'][0].main.grnd_level} hPa</p>
                   </div>
                 </div>
                 <div className='flex  justify-center items-center'>
@@ -179,7 +180,7 @@ const CityWeatherDisplay = () => {
                   </div>
                   <div>
                     <p>Sea level</p>
-                    <p>{weatherData['today'][0].main.sea_level}</p>
+                    <p>{weatherData['today'][0].main.sea_level} hPa</p>
                   </div>
                 </div>
 
