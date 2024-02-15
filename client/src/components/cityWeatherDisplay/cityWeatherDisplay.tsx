@@ -24,7 +24,7 @@ const CityWeatherDisplay = () => {
   const [filterCity, setFilterCity] = useState<FilterCityTypes[]>([])
   const { handleSearch, handleSelect, getCountryNameFromContryCode } = useCityWeatherDisplayController({ setFilterCity });
   const { weatherData } = useAppStore();
-  console.log("weatherData: \n\n\n\n", weatherData);
+  // console.log("weatherData: \n\n\n\n", weatherData);
 
   return (
     <>
@@ -121,7 +121,7 @@ const CityWeatherDisplay = () => {
 
             </div>
           </div>
-          <div className='mx-4 bg-customCharcolBlack rounded-xl'>
+          <div className='mx-4 bg-customCharcolBlack rounded-xl text-sm'>
             <p className='text-customGray text-sm m-3'>MORE INFO</p>
             {
               weatherData && <div className='grid grid-cols-3 justify-center place-items-center gap-y-10 sm:gap-y-20 sm:mt-10'>

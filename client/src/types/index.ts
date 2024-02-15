@@ -19,8 +19,8 @@ export type searchCityCordTypes = {
 }
 
 export type WeatherDataTypes = {
-  today: (WeatherDetailsTypes)[];
-  tomorrow: (WeatherDetailsTypes)[];
+  'today': (WeatherDetailsTypes)[];
+  'tomorrow': (WeatherDetailsTypes)[];
   '3rd': (WeatherDetailsTypes)[];
   '4th': (WeatherDetailsTypes)[];
   '5th': (WeatherDetailsTypes)[];

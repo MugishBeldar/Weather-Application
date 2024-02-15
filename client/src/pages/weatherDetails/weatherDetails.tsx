@@ -12,7 +12,7 @@ const WeatherDetails = () => {
             <div className=' md:m-4 md:w-2/3'>
                 <CityWeatherDisplay />
             </div>
-            <div className='md:border-2 md:m-4 md:w-1/3'>
+            <div className='md:m-4 md:w-1/3'>
                 <SevenDaysForeCast />
             </div>
         </div>
