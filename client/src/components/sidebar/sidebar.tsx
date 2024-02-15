@@ -1,12 +1,11 @@
-import React from "react";
 import Logo from "./logo/logo";
-import Settings from "./settings/settings";
+import SettingLogo from "./settingLogo/settingLogo";
 
 const Sidebar = () => {
   return (
     <>
       <Logo />
-      <div className="p-4 text-customGray">Settings</div>
+      <SettingLogo/>
     </>
   );
 };

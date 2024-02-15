@@ -1,1 +1,5 @@
-export {}
+const useSideBarController = () => {
+  return {};
+};
+
+export { useSideBarController };

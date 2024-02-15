@@ -1,6 +1,7 @@
 import React from 'react'
 import { Sidebar, CityWeatherDisplay, SevenDaysForeCast } from '../../components'
 import { useWeatherDetailsController } from './weatherDetails.controller'
+import { Outlet } from 'react-router-dom';
 
 const WeatherDetails = () => {
     useWeatherDetailsController();
@@ -15,6 +16,7 @@ const WeatherDetails = () => {
             <div className='md:m-4 md:w-1/3'>
                 <SevenDaysForeCast />
             </div>
+            <Outlet/> 
         </div>
 
     )
