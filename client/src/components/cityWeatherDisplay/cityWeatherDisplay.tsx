@@ -22,7 +22,8 @@ import { useAppStore } from '../../store'
 const CityWeatherDisplay = () => {
 
   const [filterCity, setFilterCity] = useState<FilterCityTypes[]>([])
-  const { handleSearch, handleSelect, getCountryNameFromContryCode } = useCityWeatherDisplayController({ setFilterCity });
+  const [inputFieldValue, setInputFieldValue] = useState<string>('');
+  const { handleSearch, handleSelect, getCountryNameFromContryCode, handleChange  } = useCityWeatherDisplayController({ setFilterCity, setInputFieldValue });
   const { weatherData } = useAppStore();
   // console.log("weatherData: \n\n\n\n", weatherData);
 
@@ -49,6 +50,8 @@ const CityWeatherDisplay = () => {
               placeholder="Enter City Name"
               options={filterCity}
               onSelect={handleSelect}
+              value={inputFieldValue}
+              onChange={handleChange}
             />
           </ConfigProvider>
         </div>

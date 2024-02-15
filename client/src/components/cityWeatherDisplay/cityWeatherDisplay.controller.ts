@@ -5,13 +5,17 @@ import { useAppStore } from "../../store/store";
 import { getWeatherData } from "../../api";
 interface useCityWeatherDisplayControllerProps {
   setFilterCity: React.Dispatch<React.SetStateAction<FilterCityTypes[]>>;
+  setInputFieldValue: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const useCityWeatherDisplayController = ({
-  setFilterCity,
+  setFilterCity, setInputFieldValue
 }: useCityWeatherDisplayControllerProps) => {
   const { setWeatherData } = useAppStore();
 
+  const handleChange = (value:string) => {
+    setInputFieldValue(value);
+  }
   const handleSearch = (cityName: string) => {
     let filteredCitiesNames: FilterCityTypes[];
     if (!cityName) {
@@ -38,6 +42,7 @@ const useCityWeatherDisplayController = ({
         lon: searchCityCord.lng,
       });
       setWeatherData(response.data.data);
+      setInputFieldValue('')
     } catch (error) {
       console.log("Error while getting weatherdata:--", error);
     }
@@ -49,6 +54,7 @@ const useCityWeatherDisplayController = ({
   };
 
   return {
+    handleChange,
     handleSearch,
     handleSelect,
     getCountryNameFromContryCode,

@@ -16,7 +16,7 @@ const SevenDaysForeCast = () => {
   const { weatherData } = useAppStore();
 
   return (
-    <div className=' bg-customCharcolBlack m-4 rounded-xl text-sm'>
+    <div className=' bg-customCharcolBlack m-4 rounded-xl text-sm p-4'>
       <p className='text-sm text-customGray p-4'>6-DAYS FORECAST</p>
       <div>
         {weatherData && Object.keys(weatherData).map((day: string, index: number) => {
@@ -25,7 +25,7 @@ const SevenDaysForeCast = () => {
             const weekDay = moment(dayWeather[0]?.date).format('dddd');
 
             return (
-              <div className='flex items-center w-full p-4' key={index}>
+              <div className={`flex items-center w-full p-4 ${index !== 5 ? 'border-b border-slate-600' : null}`} key={index}>
                 <p className='w-[30%] text-customGray'>{day.toLocaleLowerCase() === 'today' ? 'Today' : weekDay}</p>
 
                 <div className='w-[70%]'>
