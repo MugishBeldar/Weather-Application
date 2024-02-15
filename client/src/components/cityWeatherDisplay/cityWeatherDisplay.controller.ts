@@ -1,4 +1,4 @@
-import { FilterCityTypes, CitiesTypes } from "../../types";
+import { FilterCityTypes, CitiesTypes, searchCityCordTypes } from "../../types";
 import cities from "cities.json";
 import citiesNames from "../../utils/cities-name.json";
 import { useAppStore } from "../../store/store";
@@ -30,7 +30,7 @@ const useCityWeatherDisplayController = ({
   const handleSelect = async (cityName: string) => {
     try {
       // @ts-ignore
-      const searchCityCord: any = cities.find(
+      const searchCityCord: searchCityCordTypes = cities.find(
         (city: CitiesTypes) => city.name === cityName
       );
       const response = await getWeatherData({
@@ -51,7 +51,7 @@ const useCityWeatherDisplayController = ({
   return {
     handleSearch,
     handleSelect,
-    getCountryNameFromContryCode
+    getCountryNameFromContryCode,
   };
 };
 export default useCityWeatherDisplayController;

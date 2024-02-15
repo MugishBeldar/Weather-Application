@@ -15,7 +15,7 @@ import { WiHumidity } from "react-icons/wi";
 import { IoIosSpeedometer } from "react-icons/io";
 import { GiGrass } from "react-icons/gi";
 import { FaWater } from "react-icons/fa";
-import { FilterCityTypes } from '../../types'
+import { FilterCityTypes, WeatherDetailsTypes } from '../../types'
 import { AutoComplete, ConfigProvider } from 'antd';
 import { useAppStore } from '../../store'
 
@@ -28,7 +28,7 @@ const CityWeatherDisplay = () => {
 
   return (
     <>
-      {Object.keys(weatherData).length && <>
+      {weatherData && Object.keys(weatherData).length && <>
         <div className='h-[.5%]'>
           <ConfigProvider
             theme={{
@@ -56,7 +56,7 @@ const CityWeatherDisplay = () => {
           <div className=' grid grid-cols-2 mx-4'>
             <div className='grid grid-rows-2'>
               <div className='flex flex-col justify-center'>
-                <p className='font-bold text-3xl sm:text-4xl'>{weatherData?.city?.name} <span className='text-sm text-customGray'>{getCountryNameFromContryCode(weatherData?.city?.country)}</span></p>
+                <p className='font-bold text-3xl sm:text-4xl'>{weatherData?.city?.name} <span className='text-sm text-customGray'>{weatherData && getCountryNameFromContryCode(weatherData?.city?.country)}</span></p>
                 <p className='text-customGray'>{weatherData['today'][0]?.weather[0].description}</p>
               </div>
               <div className='flex items-center text-3xl sm:text-5xl'>
@@ -82,9 +82,7 @@ const CityWeatherDisplay = () => {
                               <img src={snow} alt="" className='w-full sm:w-[200px]' /> :
                               weatherData['today'][0]?.weather[0]?.description === 'mist' ?
                                 <img src={mist} alt="" className='w-full sm:w-[200px]' /> :
-                                weatherData['today'][0]?.weather[0]?.description === 'light rain' || weatherData['today'][0]?.weather[0]?.description === 'moderate rain' ?
-                                  <img src={lightRain} alt="" className='w-full sm:w-[200px]' /> :
-                                  null
+                                <img src={lightRain} alt="" className='w-full sm:w-[200px]' />
               }
             </div>
           </div>
@@ -92,7 +90,7 @@ const CityWeatherDisplay = () => {
           <div className='mx-4 bg-customCharcolBlack rounded-xl mb-3'>
             <p className='text-customGray text-sm m-3'>TODAY'S FORECAST</p>
             <div className={`flex justify-evenly`}>
-              {weatherData['today'].map((obj: any, index: number) => {
+              {weatherData && weatherData['today'].map((obj: WeatherDetailsTypes, index: number) => {
                 return (
                   <div className='grid place-items-center my-3' key={index}>
                     <p className='text-[10px] sm:text-[16px] md:my-1' key={index}>{obj.time}</p>
@@ -113,9 +111,7 @@ const CityWeatherDisplay = () => {
                                     <img src={snow} alt="" className='md:h-[140px] pr-2' /> :
                                     obj?.weather[0].description === 'mist' ?
                                       <img src={mist} alt="" className='md:h-[140px] pr-2' /> :
-                                      obj?.weather[0].description === 'light rain' || obj?.weather[0].description === 'moderate rain' ?
-                                        <img src={lightRain} alt="" className='md:h-[140px] pr-2' /> :
-                                        null
+                                      <img src={lightRain} alt="" className='md:h-[140px] pr-2' />
                     }
                     <p className='text-[10px] sm:text-[16px]'>{obj?.weather[0].description}</p>
                     <p className='text-[10px] sm:text-[16px]'>{obj?.main?.temp}°</p>
@@ -127,63 +123,65 @@ const CityWeatherDisplay = () => {
           </div>
           <div className='mx-4 bg-customCharcolBlack rounded-xl'>
             <p className='text-customGray text-sm m-3'>MORE INFO</p>
-            <div className='grid grid-cols-3 justify-center place-items-center gap-y-10 sm:gap-y-20 sm:mt-10'>
-              <div className='flex justify-center items-center'>
-                <div className=''>
-                  <CiTempHigh size={30} color='#A1A7B3' className='mr-2' />
+            {
+              weatherData && <div className='grid grid-cols-3 justify-center place-items-center gap-y-10 sm:gap-y-20 sm:mt-10'>
+                <div className='flex justify-center items-center'>
+                  <div className=''>
+                    <CiTempHigh size={30} color='#A1A7B3' className='mr-2' />
+                  </div>
+                  <div>
+                    <p>Real Feel</p>
+                    <p>{weatherData['today'][0].main.feels_like}</p>
+                  </div>
                 </div>
-                <div>
-                  <p>Real Feel</p>
-                  <p>{weatherData['today'][0].main.feels_like}</p>
+                <div className='flex justify-center items-center'>
+                  <div className="">
+                    <FaWind size={30} color='#A1A7B3' className='mr-2' />
+                  </div>
+                  <div>
+                    <p>Wind</p>
+                    <p>{weatherData['today'][0].wind.speed}</p>
+                  </div>
                 </div>
-              </div>
-              <div className='flex justify-center items-center'>
-                <div className="">
-                  <FaWind size={30} color='#A1A7B3' className='mr-2' />
+                <div className='flex justify-center items-center'>
+                  <div className="">
+                    <WiHumidity size={30} color='#A1A7B3' className='mr-2' />
+                  </div>
+                  <div>
+                    <p>Humidity</p>
+                    <p>{weatherData['today'][0].main.humidity}</p>
+                  </div>
                 </div>
-                <div>
-                  <p>Wind</p>
-                  <p>{weatherData['today'][0].wind.speed}</p>
+                <div className='flex justify-center items-center'>
+                  <div className="" >
+                    <IoIosSpeedometer size={30} color='#A1A7B3' className='mr-2' />
+                  </div>
+                  <div>
+                    <p>Pressure</p>
+                    <p>{weatherData['today'][0].main.pressure}</p>
+                  </div>
                 </div>
-              </div>
-              <div className='flex justify-center items-center'>
-                <div className="">
-                  <WiHumidity size={30} color='#A1A7B3' className='mr-2' />
+                <div className='flex justify-center items-center'>
+                  <div className="" >
+                    <GiGrass size={30} color='#A1A7B3' className='mr-2' />
+                  </div>
+                  <div>
+                    <p>Ground level</p>
+                    <p>{weatherData['today'][0].main.grnd_level}</p>
+                  </div>
                 </div>
-                <div>
-                  <p>Humidity</p>
-                  <p>{weatherData['today'][0].main.humidity}</p>
+                <div className='flex  justify-center items-center'>
+                  <div className="">
+                    <FaWater size={30} color='#A1A7B3' className='mr-2' />
+                  </div>
+                  <div>
+                    <p>Sea level</p>
+                    <p>{weatherData['today'][0].main.sea_level}</p>
+                  </div>
                 </div>
-              </div>
-              <div className='flex justify-center items-center'>
-                <div className="" >
-                  <IoIosSpeedometer size={30} color='#A1A7B3' className='mr-2' />
-                </div>
-                <div>
-                  <p>Pressure</p>
-                  <p>{weatherData['today'][0].main.pressure}</p>
-                </div>
-              </div>
-              <div className='flex justify-center items-center'>
-                <div className="" >
-                  <GiGrass size={30} color='#A1A7B3' className='mr-2' />
-                </div>
-                <div>
-                  <p>Ground level</p>
-                  <p>{weatherData['today'][0].main.grnd_level}</p>
-                </div>
-              </div>
-              <div className='flex  justify-center items-center'>
-                <div className="">
-                  <FaWater size={30} color='#A1A7B3' className='mr-2' />
-                </div>
-                <div>
-                  <p>Sea level</p>
-                  <p>{weatherData['today'][0].main.sea_level}</p>
-                </div>
-              </div>
 
-            </div>
+              </div>
+            }
           </div>
         </div></>}
 
