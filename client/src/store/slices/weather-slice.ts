@@ -4,6 +4,8 @@ import { WeatherDataTypes } from "../../types";
 export interface WeatherSliceType {
     weatherData?: WeatherDataTypes
     setWeatherData: (data: WeatherDataTypes) => void;
+    openModal?: boolean;
+    setOpenModal: (data: boolean) => void;
 }
 
 const createWeatherSlice: StateCreator<WeatherSliceType> = (set, get) => ({
@@ -12,6 +14,10 @@ const createWeatherSlice: StateCreator<WeatherSliceType> = (set, get) => ({
     set({weatherData: data});
   },
 
+  openModal: false,
+  setOpenModal: (open: boolean) => {
+    set({openModal: open});
+  },
 
 });
 

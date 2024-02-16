@@ -1,10 +1,13 @@
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
+
+import { useAppStore } from "../../../store";
 
 const useSettingLogoController = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+  const {setOpenModal} = useAppStore();
   const handleClick = () => {
     console.log("handel navigate");
-    navigate("/setting");
+    setOpenModal(true);
   };
   return {
     handleClick,
