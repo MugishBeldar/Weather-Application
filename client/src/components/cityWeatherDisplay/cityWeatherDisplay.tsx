@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import sunnyOrClearSky from '../../assets/sunnyOrClearSky.png'
 import fewClouds from '../../assets/fewClouds.png'
 import cloud from '../../assets/overcastCloudScatterCloudsOrBrokenCloud.png'
@@ -9,52 +8,26 @@ import thunderStrom from '../../assets/thunderstorm.png'
 import snow from '../../assets/snow.png';
 import mist from '../../assets/mist.png';
 import lightRain from '../../assets/lightRain.png';
+import SearchCities from '../searchCities/searchCities'
 import { CiTempHigh } from "react-icons/ci";
 import { FaWind } from "react-icons/fa";
 import { WiHumidity } from "react-icons/wi";
 import { IoIosSpeedometer } from "react-icons/io";
 import { GiGrass } from "react-icons/gi";
 import { FaWater } from "react-icons/fa";
-import { FilterCityTypes, WeatherDetailsTypes } from '../../types'
-import { AutoComplete, ConfigProvider } from 'antd';
+import { WeatherDetailsTypes } from '../../types'
 import { useAppStore } from '../../store'
 
 const CityWeatherDisplay = () => {
 
-  const [filterCity, setFilterCity] = useState<FilterCityTypes[]>([])
-  const [inputFieldValue, setInputFieldValue] = useState<string>('');
-  const { handleSearch, handleSelect, getCountryNameFromContryCode, handleChange } = useCityWeatherDisplayController({ setFilterCity, setInputFieldValue });
+  const { getCountryNameFromContryCode } = useCityWeatherDisplayController();
   const { weatherData } = useAppStore();
   // console.log("weatherData: \n\n\n\n", weatherData);
 
   return (
     <>
       {weatherData && Object.keys(weatherData).length && <>
-        <div className='h-[.5%]'>
-          <ConfigProvider
-            theme={{
-              token: {
-                colorPrimary: '#202B3B',
-                colorBorder: '#202B3B',
-                colorBgContainer: '#202B3B',
-                colorText: "geekblue-3",
-                colorTextPlaceholder: '#A1A7B3'
-              },
-            }} >
-            <AutoComplete
-              style={{
-                width: '100%',
-                padding: '0px 10px'
-              }}
-              onSearch={handleSearch}
-              placeholder="Enter City Name"
-              options={filterCity}
-              onSelect={handleSelect}
-              value={inputFieldValue}
-              onChange={handleChange}
-            />
-          </ConfigProvider>
-        </div>
+        <SearchCities/>
         <div className='grid grid-rows-3 h-[99.5%]'>
           <div className=' grid grid-cols-2 mx-4'>
 
