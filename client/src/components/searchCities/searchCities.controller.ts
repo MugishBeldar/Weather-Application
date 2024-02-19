@@ -13,7 +13,7 @@ const useSearchCitiesController = ({
   setFilterCity,
   setInputFieldValue,
 }: useSearchCitiesControllerProps) => {
-  const { setWeatherData } = useAppStore();
+  const { setWeatherData, setLoader } = useAppStore();
 
   const handleChange = (value: string) => {
     setInputFieldValue(value);
@@ -36,6 +36,7 @@ const useSearchCitiesController = ({
 
   const handleSelect = async (cityName: string) => {
     try {
+      setLoader(true);
       // @ts-ignore
       const searchCityCord: searchCityCordTypes = cities.find(
         (city: CitiesTypes) => city.name === cityName
@@ -46,6 +47,7 @@ const useSearchCitiesController = ({
       });
       setWeatherData(response.data.data);
       setInputFieldValue("");
+      setLoader(false);
     } catch (error) {
       console.log("Error while getting weatherdata:--", error);
     }

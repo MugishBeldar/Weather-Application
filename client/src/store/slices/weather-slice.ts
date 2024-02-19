@@ -6,6 +6,8 @@ export interface WeatherSliceType {
     setWeatherData: (data: WeatherDataTypes) => void;
     openModal?: boolean;
     setOpenModal: (data: boolean) => void;
+    loader?: boolean;
+    setLoader: (data: boolean) => void;
 }
 
 const createWeatherSlice: StateCreator<WeatherSliceType> = (set, get) => ({
@@ -19,6 +21,10 @@ const createWeatherSlice: StateCreator<WeatherSliceType> = (set, get) => ({
     set({openModal: open});
   },
 
+  loader: false,
+  setLoader: (loader: boolean) => {
+    set({loader: loader});
+  },
 });
 
 export { createWeatherSlice };
