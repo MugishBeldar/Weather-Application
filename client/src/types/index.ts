@@ -16,23 +16,23 @@ export type searchCityCordTypes = {
   country: string;
   admin1: string;
   admin2: string;
-}
+};
 
 export type WeatherDataTypes = {
-  'today': (WeatherDetailsTypes)[];
-  'tomorrow': (WeatherDetailsTypes)[];
-  '3rd': (WeatherDetailsTypes)[];
-  '4th': (WeatherDetailsTypes)[];
-  '5th': (WeatherDetailsTypes)[];
-  '6th': (WeatherDetailsTypes)[];
+  today: WeatherDetailsTypes[];
+  tomorrow: WeatherDetailsTypes[];
+  "3rd": WeatherDetailsTypes[];
+  "4th": WeatherDetailsTypes[];
+  "5th": WeatherDetailsTypes[];
+  "6th": WeatherDetailsTypes[];
   city: CityTypes;
-}
+};
 export type WeatherDetailsTypes = {
   date: string;
   time: string;
   dt: number;
   main: MainTypes;
-  weather: (WeatherTypes)[];
+  weather: WeatherTypes[];
   clouds: CloudsTypes;
   wind: WindTypes;
   visibility: number;
@@ -41,8 +41,7 @@ export type WeatherDetailsTypes = {
   sys: SysTypes;
   dt_txt: string;
   rain?: SnowOrRainTypes;
-
-}
+};
 export type MainTypes = {
   temp: number;
   feels_like: number;
@@ -53,28 +52,28 @@ export type MainTypes = {
   grnd_level: number;
   humidity: number;
   temp_kf: number;
-}
+};
 export type WeatherTypes = {
   id: number;
   main: string;
   description: string;
   icon: string;
-}
+};
 export type CloudsTypes = {
   all: number;
-}
+};
 export type WindTypes = {
   speed: number;
   deg: number;
   gust: number;
-}
+};
 export type SnowOrRainTypes = {
-  '3h': number;
-}
+  "3h": number;
+};
 export type SysTypes = {
   pod: string;
-}
-export interface CityTypes {
+};
+export type CityTypes = {
   id: number;
   name: string;
   coord: CoordTypes;
@@ -83,8 +82,14 @@ export interface CityTypes {
   timezone: number;
   sunrise: number;
   sunset: number;
-}
-export interface CoordTypes {
+};
+export type CoordTypes = {
   lat: number;
   lon: number;
-}
+};
+
+export type SettingTypes = {
+  temperature: string;
+  windSpeed: string;
+  pressure: string;
+};

@@ -8,7 +8,6 @@ import Loader from '../../components/loader/loader';
 const WeatherDetails = () => {
     useWeatherDetailsController();
     const { loader } = useAppStore();
-    console.log("🚀 ~ WeatherDetails ~ loader:", loader)
     return (
         <div className=' text-white md:flex md:h-screen md:w-screen'>
             {loader ? <Loader /> : null}

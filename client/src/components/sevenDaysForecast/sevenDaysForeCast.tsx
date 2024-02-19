@@ -11,9 +11,11 @@ import lightRain from "../../assets/lightRain.png";
 import moment from "moment-timezone";
 import { useAppStore } from "../../store";
 import { WeatherDetailsTypes } from "../../types";
+import useHelper from "../../utils/helper";
 
 const SevenDaysForeCast = () => {
   const { weatherData } = useAppStore();
+  const { getTemperature } = useHelper();
 
   return (
     <div className=" bg-customCharcolBlack m-4 rounded-xl text-sm p-4">
@@ -29,50 +31,49 @@ const SevenDaysForeCast = () => {
 
               return (
                 <div
-                  className={`flex items-center w-full py-4 ${
-                    index !== 5 ? "border-b border-slate-600" : null
-                  }`}
+                  className={`flex items-center w-full py-4 ${index !== 5 ? "border-b border-slate-600" : null
+                    }`}
                   key={index}
                 >
-                  <p className="w-[30%] text-customGray">
+                  <p className="w-[25%] text-customGray">
                     {day.toLocaleLowerCase() === "today" ? "Today" : weekDay}
                   </p>
 
                   <div className="w-[70%]">
                     {dayWeather[0]?.weather[0]?.description === "clear sky" ||
-                    dayWeather[0]?.weather[0]?.description === "sunny" ? (
+                      dayWeather[0]?.weather[0]?.description === "sunny" ? (
                       <p className="flex items-center ">
                         <img
                           src={sunnyOrClearSky}
                           alt=""
                           className="w-[70px] mr-3"
                         />
-                        <p className="w-[50%]">
+                        <p className="w-[40%]">
                           {dayWeather[0]?.weather[0]?.description}
                         </p>
-                        <p className="ml-2">{dayWeather[0]?.main?.temp}k</p>
+                        <p className="ml-4">{getTemperature(dayWeather[0]?.main?.temp)}</p>
                       </p>
                     ) : dayWeather[0]?.weather[0]?.description ===
                       "few clouds" ? (
                       <p className="flex items-center ">
                         <img src={fewClouds} alt="" className="w-[70px] mr-3" />
-                        <p className="w-[50%]">
+                        <p className="w-[40%]">
                           {dayWeather[0]?.weather[0]?.description}
                         </p>
-                        <p className="ml-2">{dayWeather[0]?.main?.temp}k</p>
+                        <p className="ml-4">{getTemperature(dayWeather[0]?.main?.temp)}</p>
                       </p>
                     ) : dayWeather[0]?.weather[0]?.description ===
-                        "scattered clouds" ||
+                      "scattered clouds" ||
                       dayWeather[0]?.weather[0]?.description ===
-                        "broken clouds" ||
+                      "broken clouds" ||
                       dayWeather[0]?.weather[0]?.description ===
-                        "overcast clouds" ? (
+                      "overcast clouds" ? (
                       <p className="flex items-center ">
                         <img src={cloud} alt="" className="w-[70px] mr-3" />
-                        <p className="w-[50%]">
+                        <p className="w-[40%]">
                           {dayWeather[0]?.weather[0]?.description}
                         </p>
-                        <p className="ml-2">{dayWeather[0]?.main?.temp}k</p>
+                        <p className="ml-4">{getTemperature(dayWeather[0]?.main?.temp)}</p>
                       </p>
                     ) : dayWeather[0]?.weather[0]?.description ===
                       "shower rain" ? (
@@ -82,18 +83,18 @@ const SevenDaysForeCast = () => {
                           alt=""
                           className="w-[70px] mr-3"
                         />
-                        <p className="w-[50%]">
+                        <p className="w-[40%]">
                           {dayWeather[0]?.weather[0]?.description}
                         </p>
-                        <p className="ml-2">{dayWeather[0]?.main?.temp}k</p>
+                        <p className="ml-4">{getTemperature(dayWeather[0]?.main?.temp)}</p>
                       </p>
                     ) : dayWeather[0]?.weather[0]?.description === "rain" ? (
                       <p className="flex items-center ">
                         <img src={rain} alt="" className="w-[70px] mr-3" />
-                        <p className="w-[50%]">
+                        <p className="w-[40%]">
                           {dayWeather[0]?.weather[0]?.description}
                         </p>
-                        <p className="ml-2">{dayWeather[0]?.main?.temp}k</p>
+                        <p className="ml-4">{getTemperature(dayWeather[0]?.main?.temp)}</p>
                       </p>
                     ) : dayWeather[0]?.weather[0]?.description ===
                       "thunderstorm" ? (
@@ -103,36 +104,36 @@ const SevenDaysForeCast = () => {
                           alt=""
                           className="w-[70px] mr-3"
                         />
-                        <p className="w-[50%]">
+                        <p className="w-[40%]">
                           {dayWeather[0]?.weather[0]?.description}
                         </p>
-                        <p className="ml-2">{dayWeather[0]?.main?.temp}k</p>
+                        <p className="ml-4">{getTemperature(dayWeather[0]?.main?.temp)}</p>
                       </p>
                     ) : dayWeather[0]?.weather[0]?.description === "snow" ||
                       dayWeather[0]?.weather[0]?.description ===
-                        "light snow" ? (
+                      "light snow" ? (
                       <p className="flex items-center ">
                         <img src={snow} alt="" className="w-[70px] mr-3" />
-                        <p className="w-[50%]">
+                        <p className="w-[40%]">
                           {dayWeather[0]?.weather[0]?.description}
                         </p>
-                        <p className="ml-2">{dayWeather[0]?.main?.temp}k</p>
+                        <p className="ml-4">{getTemperature(dayWeather[0]?.main?.temp)}</p>
                       </p>
                     ) : dayWeather[0]?.weather[0]?.description === "mist" ? (
                       <p className="flex items-center ">
                         <img src={mist} alt="" className="w-[70px] mr-3" />
-                        <p className="w-[50%]">
+                        <p className="w-[40%]">
                           {dayWeather[0]?.weather[0]?.description}
                         </p>
-                        <p className="ml-2">{dayWeather[0]?.main?.temp}k</p>
+                        <p className="ml-4">{getTemperature(dayWeather[0]?.main?.temp)}</p>
                       </p>
                     ) : (
                       <p className="flex items-center ">
                         <img src={lightRain} alt="" className="w-[70px] mr-3" />
-                        <p className="w-[50%]">
+                        <p className="w-[40%]">
                           {dayWeather[0]?.weather[0]?.description}
                         </p>
-                        <p className="ml-2">{dayWeather[0]?.main?.temp}k</p>
+                        <p className="ml-4">{getTemperature(dayWeather[0]?.main?.temp)}</p>
                       </p>
                     )}
                   </div>
